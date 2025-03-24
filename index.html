@@ -3,24 +3,367 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>emr-harmony-frontend</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
-
-    <meta property="og:title" content="Lovable Generated Project" />
-    <meta property="og:description" content="Lovable Generated Project" />
+    <title>EMR Harmony - Medical Records System</title>
+    <meta name="description" content="Electronic Medical Records system for healthcare professionals" />
+    <meta name="author" content="EMR Harmony" />
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="EMR Harmony - Medical Records System" />
+    <meta property="og:description" content="Electronic Medical Records system for healthcare professionals" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
+    <meta name="twitter:site" content="@emr_harmony" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
   </head>
 
   <body>
-    <div id="root"></div>
+    <div class="container">
+      <!-- Sidebar/Navigation -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h1 class="logo">EMR Harmony</h1>
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li class="active"><a href="#dashboard" data-page="dashboard"><span class="icon">📊</span> Dashboard</a></li>
+            <li><a href="#patients" data-page="patients"><span class="icon">👤</span> Patients</a></li>
+            <li><a href="#appointments" data-page="appointments"><span class="icon">📅</span> Appointments</a></li>
+            <li><a href="#notes" data-page="notes"><span class="icon">📝</span> Medical Notes</a></li>
+            <li><a href="#settings" data-page="settings"><span class="icon">⚙️</span> Settings</a></li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-info">
+            <div class="user-avatar">DR</div>
+            <div class="user-details">
+              <p class="user-name">Dr. Robinson</p>
+              <p class="user-role">Family Medicine</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="main-content">
+        <!-- Top navigation bar -->
+        <header class="top-bar">
+          <div class="search-container">
+            <input type="text" id="global-search" placeholder="Search patients, appointments..." />
+            <button id="search-btn" class="icon-btn">🔍</button>
+          </div>
+          <div class="top-bar-actions">
+            <button class="notifications-btn icon-btn">🔔</button>
+            <button class="help-btn icon-btn">❓</button>
+          </div>
+        </header>
+
+        <!-- Page content -->
+        <div id="page-content">
+          <!-- Dashboard Page (default view) -->
+          <section id="dashboard" class="page active">
+            <div class="page-header">
+              <h2>Dashboard</h2>
+              <p class="date">Today: <span id="current-date"></span></p>
+            </div>
+            
+            <div class="stats-container">
+              <div class="stat-card">
+                <h3>Appointments Today</h3>
+                <p class="stat-number">12</p>
+                <p class="stat-change positive">+2 from yesterday</p>
+              </div>
+              <div class="stat-card">
+                <h3>New Patients</h3>
+                <p class="stat-number">3</p>
+                <p class="stat-change positive">+1 from last week</p>
+              </div>
+              <div class="stat-card">
+                <h3>Pending Notes</h3>
+                <p class="stat-number">5</p>
+                <p class="stat-change negative">+2 from yesterday</p>
+              </div>
+            </div>
+
+            <div class="dashboard-row">
+              <div class="upcoming-appointments">
+                <div class="section-header">
+                  <h3>Today's Appointments</h3>
+                  <a href="#appointments" class="view-all">View All</a>
+                </div>
+                <div class="appointment-list">
+                  <div class="appointment-item">
+                    <div class="time">09:00 AM</div>
+                    <div class="patient-info">
+                      <p class="patient-name">Sarah Johnson</p>
+                      <p class="appointment-type">Annual Checkup</p>
+                    </div>
+                    <div class="appointment-status new">New Patient</div>
+                  </div>
+                  <div class="appointment-item">
+                    <div class="time">10:30 AM</div>
+                    <div class="patient-info">
+                      <p class="patient-name">Michael Chen</p>
+                      <p class="appointment-type">Follow-up</p>
+                    </div>
+                    <div class="appointment-status">Regular</div>
+                  </div>
+                  <div class="appointment-item">
+                    <div class="time">11:45 AM</div>
+                    <div class="patient-info">
+                      <p class="patient-name">Emma Williams</p>
+                      <p class="appointment-type">Prescription Refill</p>
+                    </div>
+                    <div class="appointment-status urgent">Urgent</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="recent-patients">
+                <div class="section-header">
+                  <h3>Recent Patients</h3>
+                  <a href="#patients" class="view-all">View All</a>
+                </div>
+                <div class="patient-list">
+                  <div class="patient-card">
+                    <div class="patient-initials">JD</div>
+                    <div class="patient-info">
+                      <p class="patient-name">John Doe</p>
+                      <p class="patient-details">38y • Male • Seen: May 2, 2023</p>
+                    </div>
+                    <button class="view-patient-btn">View</button>
+                  </div>
+                  <div class="patient-card">
+                    <div class="patient-initials">RK</div>
+                    <div class="patient-info">
+                      <p class="patient-name">Rita Kapoor</p>
+                      <p class="patient-details">42y • Female • Seen: May 5, 2023</p>
+                    </div>
+                    <button class="view-patient-btn">View</button>
+                  </div>
+                  <div class="patient-card">
+                    <div class="patient-initials">TS</div>
+                    <div class="patient-info">
+                      <p class="patient-name">Tom Smith</p>
+                      <p class="patient-details">65y • Male • Seen: May 10, 2023</p>
+                    </div>
+                    <button class="view-patient-btn">View</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Patients Page (initially hidden) -->
+          <section id="patients" class="page">
+            <div class="page-header">
+              <h2>Patients</h2>
+              <button class="primary-btn">+ Add New Patient</button>
+            </div>
+            
+            <div class="patients-controls">
+              <div class="search-filter">
+                <input type="text" placeholder="Search patients..." id="patient-search">
+                <select id="patient-filter">
+                  <option value="all">All Patients</option>
+                  <option value="recent">Recently Seen</option>
+                  <option value="upcoming">Upcoming Appointments</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="patients-list">
+              <!-- This will be populated with JavaScript -->
+              <div class="patient-row">
+                <div class="patient-info">
+                  <h3>James Wilson</h3>
+                  <p>53y • Male • ID: P10093</p>
+                </div>
+                <div class="patient-contact">
+                  <p>(555) 123-4567</p>
+                  <p>james.wilson@email.com</p>
+                </div>
+                <div class="patient-health">
+                  <p>Hypertension, Diabetes Type 2</p>
+                </div>
+                <div class="patient-last-visit">
+                  <p>Last visit: Apr 15, 2023</p>
+                  <p>Next appt: Jun 20, 2023</p>
+                </div>
+                <div class="patient-actions">
+                  <button class="view-btn">View Records</button>
+                  <button class="schedule-btn">Schedule</button>
+                </div>
+              </div>
+              <!-- More patient rows would be generated here -->
+            </div>
+          </section>
+
+          <!-- Appointments Page (initially hidden) -->
+          <section id="appointments" class="page">
+            <div class="page-header">
+              <h2>Appointments</h2>
+              <button class="primary-btn">+ New Appointment</button>
+            </div>
+            
+            <div class="appointment-calendar">
+              <div class="calendar-header">
+                <button id="prev-month">◀</button>
+                <h3 id="current-month">May 2023</h3>
+                <button id="next-month">▶</button>
+              </div>
+              <div class="calendar-grid" id="calendar-grid">
+                <!-- Calendar will be generated with JavaScript -->
+              </div>
+            </div>
+            
+            <div class="daily-schedule">
+              <h3>Appointments for <span id="selected-date">May 16, 2023</span></h3>
+              <div class="time-slots">
+                <!-- Time slots will be generated with JavaScript -->
+                <div class="time-slot">
+                  <div class="time">9:00 AM</div>
+                  <div class="appointment booked">
+                    <div class="appointment-details">
+                      <h4>Sarah Johnson</h4>
+                      <p>Annual Checkup • 30 min</p>
+                    </div>
+                    <div class="appointment-actions">
+                      <button class="edit-btn">Edit</button>
+                      <button class="cancel-btn">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- More time slots -->
+              </div>
+            </div>
+          </section>
+
+          <!-- Notes Page (initially hidden) -->
+          <section id="notes" class="page">
+            <div class="page-header">
+              <h2>Medical Notes</h2>
+            </div>
+            
+            <div class="notes-container">
+              <div class="notes-sidebar">
+                <div class="notes-controls">
+                  <button class="primary-btn">+ New Note</button>
+                  <input type="text" placeholder="Search notes..." id="notes-search">
+                </div>
+                <div class="notes-list">
+                  <div class="note-item selected">
+                    <h4>Sarah Johnson - Annual Checkup</h4>
+                    <p>May 15, 2023 • 10:30 AM</p>
+                  </div>
+                  <div class="note-item">
+                    <h4>Michael Chen - Follow-up</h4>
+                    <p>May 14, 2023 • 2:15 PM</p>
+                  </div>
+                  <div class="note-item">
+                    <h4>Emma Williams - Prescription</h4>
+                    <p>May 12, 2023 • 11:45 AM</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="note-editor">
+                <div class="note-header">
+                  <div class="patient-summary">
+                    <h3>Sarah Johnson</h3>
+                    <p>32y • Female • Annual Checkup</p>
+                    <p>May 15, 2023 • 10:30 AM</p>
+                  </div>
+                  <div class="note-actions">
+                    <button class="save-btn">Save Note</button>
+                    <button class="finalize-btn">Finalize</button>
+                  </div>
+                </div>
+                
+                <div class="note-sections">
+                  <div class="note-section">
+                    <h4>Chief Complaint</h4>
+                    <textarea placeholder="Enter chief complaint...">Patient presents for annual physical exam. Reports occasional headaches.</textarea>
+                  </div>
+                  <div class="note-section">
+                    <h4>History</h4>
+                    <textarea placeholder="Enter history...">No significant changes since last visit. Still taking Lisinopril 10mg daily for hypertension.</textarea>
+                  </div>
+                  <div class="note-section">
+                    <h4>Examination</h4>
+                    <textarea placeholder="Enter examination findings...">BP: 128/82, HR: 72, Temp: 98.6°F
+Weight: 145 lbs
+General appearance: Well-nourished, well-developed
+HEENT: Normocephalic, pupils equal and reactive to light
+Cardiac: Regular rate and rhythm, no murmurs
+Respiratory: Clear to auscultation bilaterally
+Abdomen: Soft, non-tender, non-distended</textarea>
+                  </div>
+                  <div class="note-section">
+                    <h4>Assessment & Plan</h4>
+                    <textarea placeholder="Enter assessment and plan...">1. Hypertension - well controlled. Continue Lisinopril 10mg daily.
+2. Occasional headaches - likely tension headaches. Recommended stress management techniques and adequate hydration.
+3. Routine health maintenance - all screenings up to date. Schedule mammogram for next month.
+
+Follow up in 6 months or as needed.</textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Settings Page (initially hidden) -->
+          <section id="settings" class="page">
+            <div class="page-header">
+              <h2>Settings</h2>
+            </div>
+            
+            <div class="settings-container">
+              <div class="settings-sidebar">
+                <ul class="settings-nav">
+                  <li class="active" data-settings="profile">Profile Settings</li>
+                  <li data-settings="preferences">Preferences</li>
+                  <li data-settings="notifications">Notifications</li>
+                  <li data-settings="security">Security</li>
+                </ul>
+              </div>
+              
+              <div class="settings-content">
+                <div id="profile-settings" class="settings-section active">
+                  <h3>Profile Settings</h3>
+                  <form id="profile-form">
+                    <div class="form-group">
+                      <label for="name">Full Name</label>
+                      <input type="text" id="name" value="Dr. Jane Robinson">
+                    </div>
+                    <div class="form-group">
+                      <label for="specialty">Specialty</label>
+                      <input type="text" id="specialty" value="Family Medicine">
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" id="email" value="dr.robinson@emrharmony.com">
+                    </div>
+                    <div class="form-group">
+                      <label for="phone">Phone</label>
+                      <input type="tel" id="phone" value="(555) 987-6543">
+                    </div>
+                    <button type="submit" class="primary-btn">Save Changes</button>
+                  </form>
+                </div>
+                
+                <!-- Other settings sections would be here but initially hidden -->
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
+    <script src="scripts.js"></script>
   </body>
 </html>
