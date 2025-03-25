@@ -400,6 +400,26 @@ body {
   color: white;
 }
 
+.calendar-day.has-appointments {
+  position: relative;
+}
+
+.calendar-day.has-appointments::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #0066cc;
+}
+
+.calendar-day.empty {
+  visibility: hidden;
+}
+
 .daily-schedule {
   background-color: white;
   border-radius: 12px;
