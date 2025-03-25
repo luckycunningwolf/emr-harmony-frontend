@@ -3,93 +3,41 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Set current date
   const currentDate = new Date();
-  document.getElementById('current-date').textContent = currentDate.toLocaleDateString('en-US', { 
-    weekday: 'long',
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
-  
-  // Navigation
-  const navLinks = document.querySelectorAll('.main-nav a');
-  const pages = document.querySelectorAll('.page');
-  
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      // Get the page ID from the data attribute
-      const targetPageId = this.getAttribute('data-page');
-      
-      // Remove active class from all links and add to clicked link
-      navLinks.forEach(navLink => {
-        navLink.parentElement.classList.remove('active');
-      });
-      this.parentElement.classList.add('active');
-      
-      // Hide all pages and show the target page
-      pages.forEach(page => {
-        page.classList.remove('active');
-      });
-      document.getElementById(targetPageId).classList.add('active');
+  const dateElement = document.getElementById('current-date');
+  if (dateElement) {
+    dateElement.textContent = currentDate.toLocaleDateString('en-US', { 
+      weekday: 'long',
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
     });
-  });
-  
-  // Settings navigation
-  const settingsNavItems = document.querySelectorAll('.settings-nav li');
-  const settingsSections = document.querySelectorAll('.settings-section');
-  
-  settingsNavItems.forEach(item => {
-    item.addEventListener('click', function() {
-      // Get the settings section ID from the data attribute
-      const targetSectionId = this.getAttribute('data-settings') + '-settings';
-      
-      // Remove active class from all items and add to clicked item
-      settingsNavItems.forEach(navItem => {
-        navItem.classList.remove('active');
-      });
-      this.classList.add('active');
-      
-      // Hide all settings sections and show the target section
-      settingsSections.forEach(section => {
-        section.classList.remove('active');
-      });
-      document.getElementById(targetSectionId).classList.add('active');
-    });
-  });
+  }
   
   // Calendar functions
   generateCalendar(currentDate);
   
   // Prev/Next month buttons for calendar
-  document.getElementById('prev-month').addEventListener('click', function() {
-    const currentMonth = new Date(document.getElementById('current-month').textContent);
-    currentMonth.setMonth(currentMonth.getMonth() - 1);
-    generateCalendar(currentMonth);
-  });
+  const prevMonthBtn = document.getElementById('prev-month');
+  const nextMonthBtn = document.getElementById('next-month');
   
-  document.getElementById('next-month').addEventListener('click', function() {
-    const currentMonth = new Date(document.getElementById('current-month').textContent);
-    currentMonth.setMonth(currentMonth.getMonth() + 1);
-    generateCalendar(currentMonth);
-  });
-  
-  // Profile form submit handler
-  const profileForm = document.getElementById('profile-form');
-  if (profileForm) {
-    profileForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Profile updated successfully!');
+  if (prevMonthBtn) {
+    prevMonthBtn.addEventListener('click', function() {
+      const currentMonthEl = document.getElementById('current-month');
+      if (currentMonthEl) {
+        const currentMonth = new Date(currentMonthEl.textContent);
+        currentMonth.setMonth(currentMonth.getMonth() - 1);
+        generateCalendar(currentMonth);
+      }
     });
   }
   
-  // Global search functionality
-  const globalSearch = document.getElementById('global-search');
-  if (globalSearch) {
-    globalSearch.addEventListener('keyup', function(e) {
-      if (e.key === 'Enter') {
-        alert(`Searching for: ${this.value}`);
-        this.value = '';
+  if (nextMonthBtn) {
+    nextMonthBtn.addEventListener('click', function() {
+      const currentMonthEl = document.getElementById('current-month');
+      if (currentMonthEl) {
+        const currentMonth = new Date(currentMonthEl.textContent);
+        currentMonth.setMonth(currentMonth.getMonth() + 1);
+        generateCalendar(currentMonth);
       }
     });
   }
@@ -114,26 +62,69 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Calendar day click handler
-  document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('calendar-day')) {
-      const allDays = document.querySelectorAll('.calendar-day');
-      allDays.forEach(day => {
-        day.classList.remove('selected');
-      });
-      e.target.classList.add('selected');
-      
-      const selectedDate = new Date(e.target.getAttribute('data-date'));
-      document.getElementById('selected-date').textContent = selectedDate.toLocaleDateString('en-US', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      });
-    }
+  // Add interactivity to patient view buttons
+  const viewButtons = document.querySelectorAll('.view-btn, .view-patient-btn');
+  viewButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const patientName = this.closest('.patient-row, .patient-card').querySelector('.patient-name').textContent;
+      alert(`Viewing records for ${patientName}`);
+    });
   });
   
-  // Initialize elements with simulated data
-  initializePatientList();
+  // Add interactivity to schedule buttons
+  const scheduleButtons = document.querySelectorAll('.schedule-btn');
+  scheduleButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const patientName = this.closest('.patient-row').querySelector('.patient-name').textContent;
+      alert(`Scheduling appointment for ${patientName}`);
+    });
+  });
+  
+  // Note item selection
+  const noteItems = document.querySelectorAll('.note-item');
+  noteItems.forEach(item => {
+    item.addEventListener('click', function() {
+      noteItems.forEach(note => note.classList.remove('selected'));
+      this.classList.add('selected');
+    });
+  });
+  
+  // Save note button
+  const saveNoteBtn = document.querySelector('.save-btn');
+  if (saveNoteBtn) {
+    saveNoteBtn.addEventListener('click', function() {
+      alert('Note saved successfully!');
+    });
+  }
+  
+  // Finalize note button
+  const finalizeNoteBtn = document.querySelector('.finalize-btn');
+  if (finalizeNoteBtn) {
+    finalizeNoteBtn.addEventListener('click', function() {
+      alert('Note finalized and saved to patient record!');
+    });
+  }
+  
+  // Edit appointment button
+  const editBtns = document.querySelectorAll('.edit-btn');
+  editBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const patientName = this.closest('.appointment').querySelector('h4').textContent;
+      alert(`Editing appointment for ${patientName}`);
+    });
+  });
+  
+  // Cancel appointment button
+  const cancelBtns = document.querySelectorAll('.cancel-btn');
+  cancelBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const patientName = this.closest('.appointment').querySelector('h4').textContent;
+      const confirmCancel = confirm(`Are you sure you want to cancel the appointment for ${patientName}?`);
+      if (confirmCancel) {
+        alert(`Appointment for ${patientName} has been cancelled.`);
+      }
+    });
+  });
 });
 
 // Function to generate the calendar
@@ -145,14 +136,13 @@ function generateCalendar(date) {
   calendarGrid.innerHTML = '';
   
   // Set current month header
-  document.getElementById('current-month').textContent = date.toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long'
-  });
-  
-  // Get first day of month and number of days in month
-  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  const currentMonthEl = document.getElementById('current-month');
+  if (currentMonthEl) {
+    currentMonthEl.textContent = date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long'
+    });
+  }
   
   // Add day names header
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -162,6 +152,10 @@ function generateCalendar(date) {
     dayNameEl.textContent = day;
     calendarGrid.appendChild(dayNameEl);
   });
+  
+  // Get first day of month and number of days in month
+  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
   
   // Add empty cells for days before first day of month
   for (let i = 0; i < firstDay.getDay(); i++) {
@@ -192,57 +186,21 @@ function generateCalendar(date) {
       day.classList.add('has-appointments');
     }
     
-    calendarGrid.appendChild(day);
-  }
-}
-
-// Function to initialize patient list with mock data
-function initializePatientList() {
-  // This function would normally fetch data from an API
-  // For now, we'll just add some interactivity to existing elements
-  
-  const viewPatientButtons = document.querySelectorAll('.view-patient-btn');
-  viewPatientButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const patientName = this.parentElement.querySelector('.patient-name').textContent;
-      alert(`Viewing patient records for ${patientName}`);
+    // Add click event to calendar days
+    day.addEventListener('click', function() {
+      document.querySelectorAll('.calendar-day').forEach(d => {
+        d.classList.remove('selected');
+      });
+      this.classList.add('selected');
       
-      // Simulate navigation to patient details
-      const navLinks = document.querySelectorAll('.main-nav a');
-      navLinks.forEach(link => {
-        if (link.getAttribute('data-page') === 'patients') {
-          link.click();
-        }
+      const selectedDate = new Date(this.getAttribute('data-date'));
+      document.getElementById('selected-date').textContent = selectedDate.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
       });
     });
-  });
-  
-  // Add interactivity to patient rows
-  const patientRows = document.querySelectorAll('.patient-row');
-  patientRows.forEach(row => {
-    const viewBtn = row.querySelector('.view-btn');
-    const scheduleBtn = row.querySelector('.schedule-btn');
     
-    if (viewBtn) {
-      viewBtn.addEventListener('click', function() {
-        const patientName = row.querySelector('.patient-info h3').textContent;
-        alert(`Viewing detailed records for ${patientName}`);
-      });
-    }
-    
-    if (scheduleBtn) {
-      scheduleBtn.addEventListener('click', function() {
-        const patientName = row.querySelector('.patient-info h3').textContent;
-        alert(`Scheduling appointment for ${patientName}`);
-        
-        // Simulate navigation to appointments
-        const navLinks = document.querySelectorAll('.main-nav a');
-        navLinks.forEach(link => {
-          if (link.getAttribute('data-page') === 'appointments') {
-            link.click();
-          }
-        });
-      });
-    }
-  });
+    calendarGrid.appendChild(day);
+  }
 }

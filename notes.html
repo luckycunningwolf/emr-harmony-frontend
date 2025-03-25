@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediTrack EMR - Medical Notes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar/Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="logo">MediTrack</h1>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html"><span class="icon">📊</span> Dashboard</a></li>
+          <li><a href="patients.html"><span class="icon">👤</span> Patients</a></li>
+          <li><a href="appointments.html"><span class="icon">📅</span> Appointments</a></li>
+          <li class="active"><a href="notes.html"><span class="icon">📝</span> Notes</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">DR</div>
+          <div class="user-details">
+            <p class="user-name">Dr. Smith</p>
+            <p class="user-role">General Practice</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>Medical Notes</h2>
+        <button class="primary-btn">+ New Note</button>
+      </header>
+      
+      <div class="notes-container">
+        <div class="notes-sidebar">
+          <div class="notes-controls">
+            <input type="text" placeholder="Search notes..." id="notes-search">
+          </div>
+          <div class="notes-list">
+            <div class="note-item selected">
+              <h4>John Smith - Annual Checkup</h4>
+              <p>Today • 9:00 AM</p>
+            </div>
+            <div class="note-item">
+              <h4>Mary Johnson - Follow-up</h4>
+              <p>Today • 10:30 AM</p>
+            </div>
+            <div class="note-item">
+              <h4>Robert Davis - Prescription</h4>
+              <p>Today • 2:15 PM</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="note-editor">
+          <div class="note-header">
+            <div class="patient-summary">
+              <h3>John Smith</h3>
+              <p>45y • Male • Annual Checkup</p>
+              <p>Today • 9:00 AM</p>
+            </div>
+            <div class="note-actions">
+              <button class="save-btn">Save Note</button>
+              <button class="finalize-btn">Finalize</button>
+            </div>
+          </div>
+          
+          <div class="note-sections">
+            <div class="note-section">
+              <h4>Chief Complaint</h4>
+              <textarea placeholder="Enter chief complaint...">Patient presents for annual physical exam. Reports occasional headaches.</textarea>
+            </div>
+            <div class="note-section">
+              <h4>History</h4>
+              <textarea placeholder="Enter history...">History of hypertension and Type 2 diabetes. Currently taking lisinopril and metformin.</textarea>
+            </div>
+            <div class="note-section">
+              <h4>Examination</h4>
+              <textarea placeholder="Enter examination findings...">BP: 138/85, HR: 75, Temp: 98.6°F
+Weight: 185 lbs
+General appearance: Well-nourished
+HEENT: Normal
+Cardiac: Regular rate and rhythm
+Respiratory: Clear to auscultation bilaterally
+Abdomen: Soft, non-tender</textarea>
+            </div>
+            <div class="note-section">
+              <h4>Assessment & Plan</h4>
+              <textarea placeholder="Enter assessment and plan...">1. Hypertension - controlled. Continue lisinopril.
+2. Type 2 Diabetes - controlled. Continue metformin.
+3. Headaches - likely tension-type. Recommended stress management.
+
+Follow up in 6 months or as needed.</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>

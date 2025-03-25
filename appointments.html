@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediTrack EMR - Appointments</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar/Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="logo">MediTrack</h1>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html"><span class="icon">📊</span> Dashboard</a></li>
+          <li><a href="patients.html"><span class="icon">👤</span> Patients</a></li>
+          <li class="active"><a href="appointments.html"><span class="icon">📅</span> Appointments</a></li>
+          <li><a href="notes.html"><span class="icon">📝</span> Notes</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">DR</div>
+          <div class="user-details">
+            <p class="user-name">Dr. Smith</p>
+            <p class="user-role">General Practice</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>Appointments</h2>
+        <button class="primary-btn">+ New Appointment</button>
+      </header>
+      
+      <div class="appointment-calendar">
+        <div class="calendar-header">
+          <button id="prev-month">◀</button>
+          <h3 id="current-month">May 2023</h3>
+          <button id="next-month">▶</button>
+        </div>
+        <div class="calendar-grid" id="calendar-grid">
+          <!-- Calendar will be generated with JavaScript -->
+        </div>
+      </div>
+      
+      <div class="daily-schedule">
+        <h3>Appointments for <span id="selected-date">Today</span></h3>
+        <div class="time-slots">
+          <div class="time-slot">
+            <div class="time">9:00 AM</div>
+            <div class="appointment booked">
+              <div class="appointment-details">
+                <h4>John Smith</h4>
+                <p>Annual Checkup • 30 min</p>
+              </div>
+              <div class="appointment-actions">
+                <button class="edit-btn">Edit</button>
+                <button class="cancel-btn">Cancel</button>
+              </div>
+            </div>
+          </div>
+          <div class="time-slot">
+            <div class="time">10:30 AM</div>
+            <div class="appointment booked">
+              <div class="appointment-details">
+                <h4>Mary Johnson</h4>
+                <p>Follow-up • 15 min</p>
+              </div>
+              <div class="appointment-actions">
+                <button class="edit-btn">Edit</button>
+                <button class="cancel-btn">Cancel</button>
+              </div>
+            </div>
+          </div>
+          <div class="time-slot">
+            <div class="time">11:30 AM</div>
+            <div class="appointment">
+              <p>Available</p>
+            </div>
+          </div>
+          <div class="time-slot">
+            <div class="time">1:00 PM</div>
+            <div class="appointment">
+              <p>Lunch Break</p>
+            </div>
+          </div>
+          <div class="time-slot">
+            <div class="time">2:15 PM</div>
+            <div class="appointment booked">
+              <div class="appointment-details">
+                <h4>Robert Davis</h4>
+                <p>Prescription Refill • 15 min</p>
+              </div>
+              <div class="appointment-actions">
+                <button class="edit-btn">Edit</button>
+                <button class="cancel-btn">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
