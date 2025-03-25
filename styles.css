@@ -1,5 +1,5 @@
 
-/* Base styles and CSS reset */
+/* Basic styles and CSS reset */
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   background-color: #f5f5f7;
   color: #333;
   line-height: 1.5;
@@ -16,21 +16,20 @@ body {
 
 /* Layout */
 .container {
-  display: grid;
-  grid-template-columns: 240px 1fr;
+  display: flex;
   min-height: 100vh;
 }
 
 /* Sidebar styles */
 .sidebar {
+  width: 200px;
   background-color: #ffffff;
   border-right: 1px solid #e6e6e6;
   padding: 20px 0;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  position: sticky;
-  top: 0;
+  position: fixed;
 }
 
 .sidebar-header {
@@ -52,24 +51,15 @@ body {
 }
 
 .main-nav a {
-  display: flex;
-  align-items: center;
+  display: block;
   padding: 10px 20px;
   color: #515154;
-  border-left: 3px solid transparent;
   text-decoration: none;
-  transition: all 0.2s ease;
 }
 
 .main-nav a:hover, .main-nav li.active a {
   background-color: #e6f0ff;
   color: #0066cc;
-  border-left-color: #0066cc;
-}
-
-.main-nav .icon {
-  margin-right: 10px;
-  font-size: 1.1rem;
 }
 
 .sidebar-footer {
@@ -78,39 +68,11 @@ body {
   border-top: 1px solid #e6e6e6;
 }
 
-.user-info {
-  display: flex;
-  align-items: center;
-}
-
-.user-avatar {
-  background-color: #0066cc;
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  margin-right: 10px;
-}
-
-.user-name {
-  font-weight: 600;
-  color: #333;
-}
-
-.user-role {
-  color: #86868b;
-  font-size: 0.85rem;
-}
-
 /* Main content area styles */
 .main-content {
+  flex: 1;
   padding: 20px;
-  max-width: 100%;
-  overflow-x: hidden;
+  margin-left: 200px;
 }
 
 .top-bar {
@@ -120,29 +82,32 @@ body {
   margin-bottom: 30px;
 }
 
-.date {
-  color: #86868b;
-}
-
 /* Button styles */
 .primary-btn {
   background-color: #0066cc;
   color: white;
   border: none;
   padding: 8px 16px;
-  border-radius: 8px;
-  font-weight: 500;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-.primary-btn:hover {
-  background-color: #004c99;
+.view-btn {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.view-all {
-  font-size: 0.9rem;
-  color: #0066cc;
-  text-decoration: none;
+.view-patient-btn {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 /* Dashboard styles */
@@ -155,7 +120,7 @@ body {
 
 .stat-card {
   background-color: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
@@ -166,23 +131,16 @@ body {
   margin: 8px 0;
 }
 
-.stat-change {
-  font-size: 0.9rem;
-  color: #86868b;
-}
-
-.stat-change.positive {
-  color: #34c759;
-}
-
-.stat-change.negative {
-  color: #ff3b30;
-}
-
 .dashboard-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .section-header {
@@ -195,7 +153,7 @@ body {
 /* Appointment styles */
 .upcoming-appointments, .recent-patients {
   background-color: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
@@ -210,7 +168,7 @@ body {
   display: flex;
   align-items: center;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #f5f5f7;
 }
 
@@ -227,31 +185,7 @@ body {
   font-weight: 600;
 }
 
-.appointment-type {
-  color: #86868b;
-  font-size: 0.9rem;
-}
-
-.appointment-status {
-  padding: 4px 8px;
-  background-color: #e6f0ff;
-  color: #0066cc;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.appointment-status.new {
-  background-color: #e6f7ef;
-  color: #34c759;
-}
-
-.appointment-status.urgent {
-  background-color: #ffebe9;
-  color: #ff3b30;
-}
-
-/* Patient card styles */
+/* Patient list styles */
 .patient-list {
   display: flex;
   flex-direction: column;
@@ -262,56 +196,8 @@ body {
   display: flex;
   align-items: center;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #f5f5f7;
-}
-
-.patient-initials {
-  background-color: #e6f0ff;
-  color: #0066cc;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  margin-right: 12px;
-}
-
-.patient-details {
-  color: #86868b;
-  font-size: 0.9rem;
-}
-
-.view-patient-btn {
-  background-color: transparent;
-  border: 1px solid #0066cc;
-  color: #0066cc;
-  padding: 4px 12px;
-  border-radius: 8px;
-  margin-left: auto;
-  cursor: pointer;
-}
-
-.view-patient-btn:hover {
-  background-color: #e6f0ff;
-}
-
-/* Patients page styles */
-.patients-controls {
-  margin-bottom: 24px;
-}
-
-.search-filter {
-  display: flex;
-  gap: 16px;
-}
-
-.search-filter input, .search-filter select {
-  padding: 8px 16px;
-  border: 1px solid #e6e6e6;
-  border-radius: 8px;
 }
 
 .patients-list {
@@ -321,8 +207,8 @@ body {
 }
 
 .patient-row {
-  display: grid;
-  grid-template-columns: 2fr 1.5fr 2fr 1.5fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   align-items: center;
   background-color: white;
@@ -332,97 +218,13 @@ body {
 }
 
 .patient-actions {
-  display: flex;
-  gap: 8px;
+  margin-left: auto;
 }
 
-.view-btn, .schedule-btn {
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-.view-btn {
-  background-color: #0066cc;
-  color: white;
-  border: none;
-}
-
-.schedule-btn {
-  background-color: transparent;
-  border: 1px solid #0066cc;
-  color: #0066cc;
-}
-
-/* Appointments page styles */
-.appointment-calendar {
-  background-color: white;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 24px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-}
-
-.calendar-day-name {
-  text-align: center;
-  font-weight: 500;
-  color: #86868b;
-  padding: 8px;
-}
-
-.calendar-day {
-  text-align: center;
-  padding: 8px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.calendar-day:hover {
-  background-color: #e6f0ff;
-}
-
-.calendar-day.today {
-  background-color: #0066cc;
-  color: white;
-}
-
-.calendar-day.has-appointments {
-  position: relative;
-}
-
-.calendar-day.has-appointments::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: #0066cc;
-}
-
-.calendar-day.empty {
-  visibility: hidden;
-}
-
+/* Appointment page styles */
 .daily-schedule {
   background-color: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
@@ -442,7 +244,7 @@ body {
 .appointment {
   flex: 1;
   padding: 16px;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #f5f5f7;
 }
 
@@ -451,58 +253,28 @@ body {
   border-left: 3px solid #0066cc;
 }
 
-.appointment-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.edit-btn, .cancel-btn {
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  cursor: pointer;
-}
-
-.edit-btn {
-  background-color: transparent;
-  border: 1px solid #0066cc;
-  color: #0066cc;
-}
-
-.cancel-btn {
-  background-color: transparent;
-  border: 1px solid #ff3b30;
-  color: #ff3b30;
-}
-
 /* Notes page styles */
 .notes-container {
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 24px;
-  height: calc(100vh - 150px);
+}
+
+@media (max-width: 768px) {
+  .notes-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .notes-sidebar {
   background-color: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 16px;
-  display: flex;
-  flex-direction: column;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.notes-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
 .notes-list {
-  flex: 1;
-  overflow-y: auto;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -510,7 +282,7 @@ body {
 
 .note-item {
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
@@ -518,56 +290,20 @@ body {
   background-color: #e6f0ff;
 }
 
-.note-item p {
-  color: #86868b;
-  font-size: 0.9rem;
-}
-
 .note-editor {
   background-color: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .note-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   margin-bottom: 24px;
   padding-bottom: 16px;
   border-bottom: 1px solid #e6e6e6;
 }
 
-.note-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.save-btn {
-  background-color: transparent;
-  border: 1px solid #0066cc;
-  color: #0066cc;
-  padding: 4px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.finalize-btn {
-  background-color: #0066cc;
-  color: white;
-  border: none;
-  padding: 4px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 .note-sections {
-  flex: 1;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -582,30 +318,33 @@ body {
   min-height: 100px;
   padding: 12px;
   border: 1px solid #e6e6e6;
-  border-radius: 8px;
+  border-radius: 4px;
   resize: vertical;
 }
 
-/* Responsive styles */
+/* Responsive fixes for smaller screens */
 @media (max-width: 768px) {
   .container {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
   
   .sidebar {
-    display: none;
+    width: 100%;
+    height: auto;
+    position: relative;
   }
   
-  .dashboard-row {
-    grid-template-columns: 1fr;
+  .main-content {
+    margin-left: 0;
   }
   
   .patient-row {
-    grid-template-columns: 1fr;
-    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
   }
   
-  .notes-container {
-    grid-template-columns: 1fr;
+  .patient-actions {
+    margin-left: 0;
+    margin-top: 10px;
   }
 }

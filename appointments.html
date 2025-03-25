@@ -16,20 +16,14 @@
       </div>
       <nav class="main-nav">
         <ul>
-          <li><a href="index.html"><span class="icon">📊</span> Dashboard</a></li>
-          <li><a href="patients.html"><span class="icon">👤</span> Patients</a></li>
-          <li class="active"><a href="appointments.html"><span class="icon">📅</span> Appointments</a></li>
-          <li><a href="notes.html"><span class="icon">📝</span> Notes</a></li>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="patients.html">Patients</a></li>
+          <li class="active"><a href="appointments.html">Appointments</a></li>
+          <li><a href="notes.html">Notes</a></li>
         </ul>
       </nav>
       <div class="sidebar-footer">
-        <div class="user-info">
-          <div class="user-avatar">DR</div>
-          <div class="user-details">
-            <p class="user-name">Dr. Arjun</p>
-            <p class="user-role">General Practice</p>
-          </div>
-        </div>
+        <p>Dr. Arjun</p>
       </div>
     </aside>
 
@@ -37,22 +31,11 @@
     <main class="main-content">
       <header class="top-bar">
         <h2>Appointments</h2>
-        <button class="primary-btn">+ New Appointment</button>
+        <button class="primary-btn">New Appointment</button>
       </header>
       
-      <div class="appointment-calendar">
-        <div class="calendar-header">
-          <button id="prev-month">◀</button>
-          <h3 id="current-month">May 2023</h3>
-          <button id="next-month">▶</button>
-        </div>
-        <div class="calendar-grid" id="calendar-grid">
-          <!-- Calendar will be generated with JavaScript -->
-        </div>
-      </div>
-      
       <div class="daily-schedule">
-        <h3>Appointments for <span id="selected-date">Today</span></h3>
+        <h3>Today's Appointments</h3>
         <div class="time-slots">
           <div class="time-slot">
             <div class="time">9:00 AM</div>
@@ -60,10 +43,6 @@
               <div class="appointment-details">
                 <h4>Rajesh Kumar</h4>
                 <p>Annual Checkup • 30 min</p>
-              </div>
-              <div class="appointment-actions">
-                <button class="edit-btn">Edit</button>
-                <button class="cancel-btn">Cancel</button>
               </div>
             </div>
           </div>
@@ -73,10 +52,6 @@
               <div class="appointment-details">
                 <h4>Priya Venkatesh</h4>
                 <p>Follow-up • 15 min</p>
-              </div>
-              <div class="appointment-actions">
-                <button class="edit-btn">Edit</button>
-                <button class="cancel-btn">Cancel</button>
               </div>
             </div>
           </div>
@@ -98,10 +73,6 @@
               <div class="appointment-details">
                 <h4>Karthik Raman</h4>
                 <p>Prescription Refill • 15 min</p>
-              </div>
-              <div class="appointment-actions">
-                <button class="edit-btn">Edit</button>
-                <button class="cancel-btn">Cancel</button>
               </div>
             </div>
           </div>
