@@ -1,118 +1,15 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MediTrack EMR - Dashboard</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="container">
-    <!-- Sidebar/Navigation -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <h1 class="logo">MediTrack</h1>
-      </div>
-      <nav class="main-nav">
-        <ul>
-          <li class="active"><a href="index.html">Dashboard</a></li>
-          <li><a href="patients.html">Patients</a></li>
-          <li><a href="appointments.html">Appointments</a></li>
-          <li><a href="notes.html">Notes</a></li>
-        </ul>
-      </nav>
-      <div class="sidebar-footer">
-        <p>Dr. Arjun</p>
-      </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="main-content">
-      <header class="top-bar">
-        <h2>Dashboard</h2>
-        <div class="date">Today: <span id="current-date"></span></div>
-      </header>
-
-      <div class="stats-container">
-        <div class="stat-card">
-          <h3>Appointments Today</h3>
-          <p class="stat-number">5</p>
-        </div>
-        <div class="stat-card">
-          <h3>New Patients</h3>
-          <p class="stat-number">2</p>
-        </div>
-        <div class="stat-card">
-          <h3>Pending Notes</h3>
-          <p class="stat-number">3</p>
-        </div>
-      </div>
-
-      <div class="dashboard-row">
-        <div class="upcoming-appointments">
-          <div class="section-header">
-            <h3>Today's Appointments</h3>
-            <a href="appointments.html">View All</a>
-          </div>
-          <div class="appointment-list">
-            <div class="appointment-item">
-              <div class="time">09:00 AM</div>
-              <div class="patient-info">
-                <p class="patient-name">Rajesh Kumar</p>
-                <p>Annual Checkup</p>
-              </div>
-            </div>
-            <div class="appointment-item">
-              <div class="time">10:30 AM</div>
-              <div class="patient-info">
-                <p class="patient-name">Priya Venkatesh</p>
-                <p>Follow-up</p>
-              </div>
-            </div>
-            <div class="appointment-item">
-              <div class="time">02:15 PM</div>
-              <div class="patient-info">
-                <p class="patient-name">Karthik Raman</p>
-                <p>Prescription Refill</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="recent-patients">
-          <div class="section-header">
-            <h3>Recent Patients</h3>
-            <a href="patients.html">View All</a>
-          </div>
-          <div class="patient-list">
-            <div class="patient-card">
-              <div class="patient-info">
-                <p class="patient-name">Rajesh Kumar</p>
-                <p>45y • Male • Seen: Today</p>
-              </div>
-              <button class="view-patient-btn">View</button>
-            </div>
-            <div class="patient-card">
-              <div class="patient-info">
-                <p class="patient-name">Priya Venkatesh</p>
-                <p>38y • Female • Seen: Today</p>
-              </div>
-              <button class="view-patient-btn">View</button>
-            </div>
-            <div class="patient-card">
-              <div class="patient-info">
-                <p class="patient-name">Karthik Raman</p>
-                <p>62y • Male • Seen: Yesterday</p>
-              </div>
-              <button class="view-patient-btn">View</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
-
-  <script src="scripts.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediTrack</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
