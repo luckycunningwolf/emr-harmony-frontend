@@ -7,8 +7,8 @@ const Appointments = () => {
     <div className="flex min-h-screen bg-gray-100">
       <BasicSidebar />
 
-      {/* Main Content */}
-      <main className="ml-64 flex-1 p-8">
+      {/* Main Content - Adjusted with more appropriate margins */}
+      <main className="flex-1 px-4 py-8 md:ml-64 md:px-8 max-w-7xl mx-auto">
         <header className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Appointments</h2>
           <button 

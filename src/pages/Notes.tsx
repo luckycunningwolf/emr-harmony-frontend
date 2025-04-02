@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
 import BasicSidebar from '../components/BasicSidebar';
+import { FileText, Plus, Printer } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Notes = () => {
   const [selectedNote, setSelectedNote] = useState(0);
@@ -31,14 +33,65 @@ const Notes = () => {
     setNotes(updatedNotes);
   };
 
+  const createNewNote = () => {
+    const newNote = {
+      patient: "New Patient",
+      title: "New Note",
+      date: "Today",
+      content: ""
+    };
+    setNotes([newNote, ...notes]);
+    setSelectedNote(0);
+    toast.success("New note created!");
+  };
+
+  const printNote = () => {
+    const noteContent = notes[selectedNote];
+    const printWindow = window.open('', '_blank');
+    
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Medical Note - ${noteContent.patient}</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; }
+            h1 { font-size: 18px; }
+            .meta { color: #666; margin-bottom: 20px; }
+            .content { white-space: pre-wrap; }
+          </style>
+        </head>
+        <body>
+          <h1>${noteContent.patient} - ${noteContent.title}</h1>
+          <div class="meta">${noteContent.date}</div>
+          <div class="content">${noteContent.content}</div>
+        </body>
+      </html>
+    `);
+    
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => {
+      printWindow.print();
+    }, 250);
+    
+    toast.success("Printing note...");
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <BasicSidebar />
 
-      {/* Main Content */}
-      <main className="ml-64 flex-1 p-8">
-        <header className="mb-6">
+      {/* Main Content - Adjusted with more appropriate margins */}
+      <main className="flex-1 px-4 py-8 md:ml-64 md:px-8 max-w-7xl mx-auto">
+        <header className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Medical Notes</h2>
+          <button 
+            className="bg-blue-600 text-white px-4 py-2 rounded flex items-center"
+            onClick={createNewNote}
+          >
+            <Plus className="mr-1 h-4 w-4" />
+            New Note
+          </button>
         </header>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -66,19 +119,31 @@ const Notes = () => {
           
           {/* Note editor */}
           <div className="bg-white p-6 rounded-lg shadow-sm md:col-span-2">
-            <h3 className="text-lg font-bold mb-4">{notes[selectedNote].patient} - {notes[selectedNote].title}</h3>
-            <p className="text-sm text-gray-500 mb-4">{notes[selectedNote].date}</p>
+            <div className="flex justify-between items-center mb-4">
+              <div>
+                <h3 className="text-lg font-bold">{notes[selectedNote].patient} - {notes[selectedNote].title}</h3>
+                <p className="text-sm text-gray-500">{notes[selectedNote].date}</p>
+              </div>
+              <button 
+                className="flex items-center text-gray-600 hover:text-gray-900 px-3 py-2 rounded border border-gray-300 hover:bg-gray-50"
+                onClick={printNote}
+              >
+                <Printer className="mr-1 h-4 w-4" />
+                Print
+              </button>
+            </div>
             
             <textarea 
               className="w-full h-64 p-3 border border-gray-300 rounded"
               value={notes[selectedNote].content}
               onChange={handleContentChange}
+              placeholder="Enter note content..."
             ></textarea>
             
             <div className="mt-4 flex justify-end">
               <button 
                 className="bg-blue-600 text-white px-4 py-2 rounded"
-                onClick={() => alert("Note saved!")}
+                onClick={() => toast.success("Note saved!")}
               >
                 Save Note
               </button>

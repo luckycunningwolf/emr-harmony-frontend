@@ -1,21 +1,26 @@
 
 import React, { useState } from 'react';
 import BasicSidebar from '../components/BasicSidebar';
+import { toast } from 'sonner';
 
 const Settings = () => {
   const [doctorName, setDoctorName] = useState('Dr. Smith');
   const [specialty, setSpecialty] = useState('General Practitioner');
 
   const handleSave = () => {
-    alert(`Settings saved!\nDoctor Name: ${doctorName}\nSpecialty: ${specialty}`);
+    // Save to localStorage to be accessible by the sidebar
+    const doctorInfo = { name: doctorName, specialty };
+    localStorage.setItem('doctor', JSON.stringify(doctorInfo));
+    
+    toast.success(`Settings saved successfully!`);
   };
 
   return (
     <div className="flex min-h-screen bg-gray-100">
       <BasicSidebar />
 
-      {/* Main Content */}
-      <main className="ml-64 flex-1 p-8">
+      {/* Main Content - Adjusted with more appropriate margins */}
+      <main className="flex-1 px-4 py-8 md:ml-64 md:px-8 max-w-7xl mx-auto">
         <header className="mb-6">
           <h2 className="text-2xl font-bold">Settings</h2>
         </header>
