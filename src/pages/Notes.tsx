@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Sidebar from '../components/Sidebar';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { Printer } from 'lucide-react';
 
 const Notes = () => {
   const [selectedNote, setSelectedNote] = useState(0);
@@ -19,6 +19,9 @@ const Notes = () => {
     complaint: "",
     assessment: ""
   });
+  
+  // Create a reference to the printable content
+  const printableRef = useRef<HTMLDivElement>(null);
   
   const [notes, setNotes] = useState([
     {
@@ -108,6 +111,138 @@ const Notes = () => {
     };
     setNotes(updatedNotes);
   };
+  
+  const handlePrint = () => {
+    const printWindow = window.open('', '_blank');
+    
+    if (!printWindow) {
+      toast({
+        title: "Error",
+        description: "Unable to open print window. Please check your popup settings.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    const selectedNoteData = notes[selectedNote];
+    const doctorInfo = JSON.parse(localStorage.getItem('doctor') || '{"name": "Dr. Arjun", "specialty": "Physician"}');
+    
+    // Create the print content with better styling
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Medical Note - ${selectedNoteData.patient}</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              margin: 0;
+              padding: 20px;
+              color: #333;
+            }
+            .header {
+              text-align: center;
+              margin-bottom: 20px;
+              padding-bottom: 10px;
+              border-bottom: 1px solid #ddd;
+            }
+            .doctor-info {
+              font-size: 14px;
+              margin-bottom: 5px;
+            }
+            .patient-info {
+              margin-bottom: 20px;
+            }
+            .note-section {
+              margin-bottom: 20px;
+            }
+            .note-section h3 {
+              font-size: 16px;
+              margin-bottom: 5px;
+              border-bottom: 1px solid #eee;
+              padding-bottom: 5px;
+            }
+            .note-content {
+              white-space: pre-wrap;
+              padding: 10px;
+              background-color: #f9f9f9;
+              border-radius: 4px;
+              min-height: 50px;
+            }
+            .timestamp {
+              font-size: 12px;
+              color: #777;
+              margin-top: 30px;
+              text-align: right;
+            }
+            .signature {
+              margin-top: 60px;
+              border-top: 1px solid #ddd;
+              padding-top: 10px;
+            }
+            @media print {
+              body {
+                padding: 0;
+              }
+              button {
+                display: none;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>MediTrack EMR</h1>
+            <div class="doctor-info">
+              ${doctorInfo.name} - ${doctorInfo.specialty}
+            </div>
+          </div>
+          
+          <div class="patient-info">
+            <h2>${selectedNoteData.patient}</h2>
+            <p><strong>Visit Type:</strong> ${selectedNoteData.title}</p>
+            <p><strong>Date/Time:</strong> ${selectedNoteData.time}</p>
+          </div>
+          
+          <div class="note-section">
+            <h3>Chief Complaint</h3>
+            <div class="note-content">${selectedNoteData.complaint || "No chief complaint recorded."}</div>
+          </div>
+          
+          <div class="note-section">
+            <h3>Assessment & Plan</h3>
+            <div class="note-content">${selectedNoteData.assessment || "No assessment recorded."}</div>
+          </div>
+          
+          <div class="signature">
+            <p>${doctorInfo.name}</p>
+            <p>${doctorInfo.specialty}</p>
+          </div>
+          
+          <div class="timestamp">
+            Generated on: ${new Date().toLocaleString()}
+          </div>
+          
+          <button onclick="window.print()" style="margin-top: 20px; padding: 8px 16px; background-color: #0070f3; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Print Document
+          </button>
+        </body>
+      </html>
+    `);
+    
+    printWindow.document.close();
+    
+    // Give a brief moment for resources to load then prompt the print dialog
+    setTimeout(() => {
+      printWindow.focus();
+      printWindow.print();
+    }, 500);
+    
+    toast({
+      title: "Success",
+      description: "Print window opened. Please use your browser's print dialog to proceed.",
+    });
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -117,11 +252,21 @@ const Notes = () => {
       <main className="ml-64 flex-1 p-8">
         <header className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Medical Notes</h2>
-          <Button 
-            onClick={() => setIsNewNoteOpen(true)}
-          >
-            New Note
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              onClick={handlePrint}
+              variant="outline"
+              disabled={!(notes.length > 0)}
+            >
+              <Printer className="mr-1 h-4 w-4" />
+              Print Note
+            </Button>
+            <Button 
+              onClick={() => setIsNewNoteOpen(true)}
+            >
+              New Note
+            </Button>
+          </div>
         </header>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -158,7 +303,8 @@ const Notes = () => {
           </div>
           
           {/* Note editor */}
-          <div className="bg-white p-6 rounded-lg shadow-sm md:col-span-2">
+          <div className="bg-white p-6 rounded-lg shadow-sm md:col-span-2" ref={printableRef}>
+            
             <div className="mb-6 pb-4 border-b border-gray-200">
               <h3 className="text-lg font-bold">{notes[selectedNote].patient}</h3>
               <p className="text-sm text-gray-600">
@@ -194,6 +340,7 @@ const Notes = () => {
 
       {/* New Note Dialog */}
       <Dialog open={isNewNoteOpen} onOpenChange={setIsNewNoteOpen}>
+        
         <DialogContent className="sm:max-w-[525px]">
           <DialogHeader>
             <DialogTitle>Add New Note</DialogTitle>
