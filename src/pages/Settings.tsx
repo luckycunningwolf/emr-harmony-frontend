@@ -19,8 +19,8 @@ const Settings = () => {
     <div className="flex min-h-screen bg-gray-100">
       <BasicSidebar />
 
-      {/* Main Content - Adjusted with more appropriate margins */}
-      <main className="flex-1 px-4 py-8 md:ml-64 md:px-8 max-w-7xl mx-auto">
+      {/* Main Content - Fixed positioning */}
+      <main className="flex-1 p-6 md:p-8 w-full max-w-6xl mx-auto">
         <header className="mb-6">
           <h2 className="text-2xl font-bold">Settings</h2>
         </header>
